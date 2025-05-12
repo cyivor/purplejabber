@@ -19,7 +19,9 @@ pip install slixmpp python-gnupg dotenv
 ```
 
 4. Run `setup.sh`
-```./setup.sh```
+```
+./setup.sh
+```
 
 ### Requirements
 
