@@ -4,12 +4,16 @@ Jabber/XMPP client built with Python which utilizes PGP for encryption, removing
 ## Installation
 
 1. Clone the repo
-```git clone https://github.com/cyivor/purplejabber```
+```
+git clone https://github.com/cyivor/purplejabber
+```
 
 3. Change directory
-```cd purplejabber```
+```
+cd purplejabber
+```
 
-4. Install 3 dependencies
+5. Install 3 dependencies
 ```
 pip install slixmpp python-gnupg dotenv
 ```
@@ -27,11 +31,17 @@ pip install slixmpp python-gnupg dotenv
 ## Future features
 
 1. Version control command 
-```/version 1.0```
-2. Create, remove, certify, and identify PGP key pairs
-```/cpgp create/remove/certify/find```
-3. Personalisation
-```/settings | /preferences```
+```
+/version 1.0
+```
+3. Create, remove, certify, and identify PGP key pairs
+```
+/cpgp create/remove/certify/find
+```
+5. Personalisation
+```
+/settings | /preferences
+```
 
 ---
 
