@@ -10,7 +10,9 @@ Jabber/XMPP client built with Python which utilizes PGP for encryption, removing
 ```cd purplejabber```
 
 4. Install 3 dependencies
-```pip install slixmpp python-gnupg dotenv```
+```
+pip install slixmpp python-gnupg dotenv
+```
 
 4. Run `setup.sh`
 ```./setup.sh```
