@@ -3,6 +3,8 @@ Jabber/XMPP client built with Python which utilizes PGP for encryption, removing
 
 ## Installation
 
+` test `
+
 1. Clone the repo
 
 ``` git clone https://github.com/cyivor/purplejabber ```
