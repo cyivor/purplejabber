@@ -18,7 +18,12 @@ cd purplejabber
 pip install slixmpp python-gnupg dotenv
 ```
 
-4. Run `setup.sh`
+4. Change the mode of `setup.sh`
+```
+chmod +x setup.sh
+```
+
+5. Run `setup.sh`
 
 ***Before running the setup script, look inside the file and change the value of*** `localpassword` ***to whatever you want your local password to be***
 ```
