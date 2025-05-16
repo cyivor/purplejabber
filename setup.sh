@@ -1,3 +1,4 @@
+mkdir -p .keys/public
 chmod +x src/*
 touch .env
 echo "passwordForDataFile=ChangeThisDefaultPassword12345}!@£?£" > .env
