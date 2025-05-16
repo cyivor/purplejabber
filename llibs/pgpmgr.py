@@ -1,9 +1,57 @@
-import gnupg, os, re, sys, getpass
+import gnupg, os, re, sys, getpass, shutil, json
 import llibs.config as config
 
 class PGPManager:
-    def __init__(self, cryptHandlerInstance):
+    def __init__(self, cryptHandlerInstance, contactmgr):
         self.fileCryptHandler = cryptHandlerInstance
+        self.contactmgr = contactmgr
+
+    def ImportKey(self, keyPath=None):
+        if not keyPath:
+            Keys = self.FindKeys()
+            print(f"{len(Keys)} keys found. ")
+            for Index, KeyPath in enumerate(Keys):
+                print(f"\n{Index + 1}) {KeyPath}")
+            decision = input(": ")
+            while decision > len(Keys) or decision < len(Keys):
+                print("Invalid number. Try again.")
+                decision = input(": ")
+            SelectKey = Keys[decision - 1]
+        else:
+            SelectKey = keyPath
+        if os.path.exists(SelectKey):
+            contact = None
+            keyShort = keyPath.split("/")[-1]
+            FullKey = os.path.join(config.KEYPATHS["public"], keyShort)
+            print(f"Importing {keyShort}")
+            shutil.copyfile(SelectKey, FullKey, follow_symlinks=False)
+            print("Imported.")
+            print("Attempting to find match for key.")
+            matchFound, contact = self.FindMatch(FullKey)
+            if matchFound: print(f"Successfully connected PGP key to {contact}")
+            else:
+                print(f"Unsuccessful in connected PGP key to {contact}")
+                contact = input("Please enter a contact: ")
+                keyAdded = self.AddKey(contact, FullKey)
+                if keyAdded: print(f"Successfully connected PGP key to {contact}")
+                else: print(f"Unsuccessful in connected PGP key to {contact}")
+        else:
+            print(f"Can't find that PGP key, please try again.")
+
+    def FindKeys(self):
+        # change this entire function to just execute a binary in src/ created in sh or asm for speed
+        # ... or just have it use `find` or fucking `grep` lol
+        keys = []
+        for root, _, files in os.walk("/", topdown=True):
+            for file in files:
+                if file.endswith(".asc"):
+                    try:
+                        fp = os.path.join(root, file)
+                        if os.access(fp, os.R_OK):
+                            if config.JABBERDIR not in fp: keys.append(fp)
+                    except Exception:
+                        pass
+        return keys
 
     def IsEncrypted(self, message):
         message = message.strip()
@@ -14,10 +62,33 @@ class PGPManager:
         match = messagePattern.search(message)
         return bool(match)
 
-    def GetKey(self, XMPPAddress):
-        
-        KeyData = self.fileCryptHandler.TMPCreation("keys", "decrypt")
+    def FindMatch(self, XMPPAddressKey):
+        Contacts = self.contactmgr.GetContacts()
+        gContact = None
+        for contact in Contacts:
+            if contact.split("@")[0] in XMPPAddressKey:
+                print(f"Matched {contact} with {XMPPAddressKey.split('/')[-1]}.")
+                print("Connecting key to contact.")
+                keyAdded = self.AddKey(contact, XMPPAddressKey)
+                if keyAdded:
+                    return True, contact
+                else:
+                    gContact = contact
+                    break
+        return False, gContact
+                
 
+    def AddKey(self, XMPPAddress, XMPPAddressKey):
+        KeyData = self.contactmgr._read_all_data()
+        PubKeys = KeyData["dat_"]["keys"]["public"]
+        keyObj = config.KEYBLOB
+        keyObj["xmpp"] = XMPPAddress
+        keyObj["key"] = XMPPAddressKey
+        PubKeys.append(keyObj)
+        return self.contactmgr._write_all_data(KeyData)
+
+    def GetKey(self, XMPPAddress):
+        KeyData = self.fileCryptHandler.TMPCreation("keys", "decrypt")
         PubKeys = KeyData["public"]
         keyFile = None
         for key in PubKeys:

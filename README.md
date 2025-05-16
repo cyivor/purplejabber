@@ -43,11 +43,8 @@ chmod +x setup.sh
 ```
 /version 1.0
 ```
-3. Create, remove, certify, and identify PGP key pairs
-```
-/cpgp create/remove/certify/find
-```
-5. Personalisation
+
+2. Personalisation
 ```
 /settings | /preferences
 ```
@@ -55,3 +52,10 @@ chmod +x setup.sh
 ---
 
 <i>If there are any issues, please feel free to open them here on Github</i>
+
+---
+
+# Updates
+```
+2025.05.16 - Add Import (pgp key) command and fix setup.sh issue that prevented setup.sh from creating encrypted data file
+```
