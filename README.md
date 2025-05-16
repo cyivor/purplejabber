@@ -1,6 +1,8 @@
 # PurpleJabber
 Jabber/XMPP client built with Python which utilizes PGP for encryption, removing the barrier for different XMPP servers using different encryption methods.
 
+<img src="src/image.jpg"/>
+
 ## Installation
 
 1. Clone the repo
@@ -57,5 +59,6 @@ chmod +x setup.sh
 
 # Updates
 ```
-2025.05.16 - Add Import (pgp key) command and fix setup.sh issue that prevented setup.sh from creating encrypted data file
+2025.05.16.1 - Add Import (pgp key) command and fix setup.sh issue that prevented setup.sh from creating encrypted data file
+2025.05.16.2 - Add ability to see debug output for the code
 ```

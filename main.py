@@ -228,9 +228,9 @@ async def amain():
         sys.exit(1)
     
     JID = input("Enter your JID (e.g., user@thesecure.biz): ")
-    if not (JID.endswith("@thesecure.biz") or JID.endswith("@xmpp.jp")):
+    """if not (JID.endswith("@thesecure.biz") or JID.endswith("@xmpp.jp")):
         print("Invalid JID domain. Only thesecure.biz or xmpp.jp servers are allowed.")
-        sys.exit(1)
+        sys.exit(1)"""
 
     JIDPassword = getpass.getpass("Enter your JID password: ")
 
