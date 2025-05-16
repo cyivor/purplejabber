@@ -1,4 +1,4 @@
-import gnupg, os, re, sys, getpass, shutil, json
+import gnupg, os, re, sys, getpass, shutil, subprocess
 import llibs.config as config
 
 class PGPManager:
@@ -39,18 +39,28 @@ class PGPManager:
             print(f"Can't find that PGP key, please try again.")
 
     def FindKeys(self):
-        # change this entire function to just execute a binary in src/ created in sh or asm for speed
-        # ... or just have it use `find` or fucking `grep` lol
         keys = []
-        for root, _, files in os.walk("/", topdown=True):
-            for file in files:
-                if file.endswith(".asc"):
-                    try:
-                        fp = os.path.join(root, file)
-                        if os.access(fp, os.R_OK):
-                            if config.JABBERDIR not in fp: keys.append(fp)
-                    except Exception:
-                        pass
+        
+        if not hasattr(config, 'JABBERDIR') or not config.JABBERDIR:
+            return []
+            
+        JABBERDIR = os.path.abspath(config.JABBERDIR)
+
+        cmd = [
+            'find', '/',
+            '-path', JABBERDIR, '-prune',
+            '-o',
+            '-type', 'f',
+            '-name', '*.asc',
+            '-print'
+        ]
+
+        result = subprocess.run(cmd, capture_output=True, text=True, check=False, stderr=subprocess.DEVNULL)
+            
+        if result.returncode == 0:
+            if result.stdout:
+                keys = [line for line in result.stdout.splitlines() if line]
+            
         return keys
 
     def IsEncrypted(self, message):
