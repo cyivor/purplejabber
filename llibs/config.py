@@ -25,7 +25,8 @@ Welcome to PurpleJabber. You can navigate with these:
     /remove        /- - Remove a contact (/- user@thesecure.biz)
     /notifications /% - Shows messages you missed while the client was open
     /pgp           /< - Enable/Disable PGP encrypted messages.
-    /import        /> - Import a public PGP key pair
+    /import        /> - Import a public PGP key pair (/> /path/to/key.asc)
     /debug         /; - Debug and show info-level logger information (you won't need this)
 Pressing enter without any command will send a message to your most recent contact.
 """
+#    /exec          /$ - Execute commands from inside PurpleJabber

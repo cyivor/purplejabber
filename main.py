@@ -1,4 +1,4 @@
-import slixmpp, asyncio, sys, getpass, gc, os, logging 
+import slixmpp, asyncio, sys, getpass, gc, os, logging
 
 import llibs.config as app_config
 
@@ -50,10 +50,10 @@ class XMPPClient(slixmpp.ClientXMPP):
                                     uninstallScript = os.path.join(app_config.JABBERDIR, "src", "uninstall.sh")
                                     if os.path.isfile(uninstallScript):
                                         print("Attempting to run uninstall script...")
+                                        os.execv("/bin/bash", ["/bin/bash", uninstallScript])
                                         self.running = False
                                         self.disconnect()
                                         await asyncio.sleep(0.5)
-                                        os.execv("/bin/bash", ["/bin/bash", uninstallScript])
                                     else:
                                         print(f"Uninstall script not found at {uninstallScript}")
                                 else:
@@ -148,6 +148,10 @@ class XMPPClient(slixmpp.ClientXMPP):
                         app_config.DEBUG = not app_config.DEBUG
                         status = " " if app_config.DEBUG else " not "
                         print(f"You will{status}view debug output")
+                    case "/exec" | "/$":
+                        ... # do tomorrow
+                            # also fix /delete
+                            # on top of that fix self.pgpmgr.FindKeys()
                     case _:
                         message = command
                         recipient = self.contactmgr.GetRecentRecipient()
@@ -193,7 +197,7 @@ class XMPPClient(slixmpp.ClientXMPP):
                 if decrypted is not None:
                     message = decrypted
                 else:
-                    print(f"\nFailed to decrypt PGP message from {user}.")
+                    print(f"\nFailed to decrypt PGP message from {user}. This is probably because you haven't exported your private key to somewhere in your filesystem.")
                     if user not in app_config.MNE: app_config.MNE.append(user)
             elif user not in app_config.MNE:
                  print(f"\nMessage from {user} is not encrypted. Be careful.")
