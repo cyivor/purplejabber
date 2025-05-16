@@ -51,6 +51,9 @@ chmod +x setup.sh
 /settings | /preferences
 ```
 
+3. Plugins
+```
+/plugin <plugin_name> | /pullplugin <plugin_to_add>
 ---
 
 <i>If there are any issues, please feel free to open them here on Github</i>
