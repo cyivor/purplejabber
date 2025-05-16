@@ -56,6 +56,13 @@ chmod +x setup.sh
 /plugin <plugin_name> | /pullplugin <plugin_to_add>
 ```
 
+4. Execute CLI commands
+```
+/exec uname -a
+```
+
+5. Encryption with XSalsa20 for secret pgp keys
+
 ---
 
 <i>If there are any issues, please feel free to open them here on Github</i>
