@@ -27,7 +27,7 @@ chmod +x setup.sh
 
 5. Run `setup.sh`
 
-***Before running the setup script, look inside the file and change the value of*** `localPassword` ***to whatever you want your local password to be, and *** `passwordForDataFile` ***to a random string of text, or an AES key, or whatever you want really.***
+***Before running the setup script, look inside the file and change the value of `localPassword` to whatever you want your local password to be, and `passwordForDataFile` to a random string of text, or an AES key, or whatever you want really.***
 ```
 ./setup.sh
 ```
