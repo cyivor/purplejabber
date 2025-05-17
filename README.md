@@ -73,4 +73,5 @@ chmod +x setup.sh
 ```
 2025.05.16.1 - Add Import (pgp key) command and fix setup.sh issue that prevented setup.sh from creating encrypted data file
 2025.05.16.2 - Add ability to see debug output for the code
+2025.05.17.1 - You can use the import command by its lonesome to find public pgp keys in your filesystem
 ```
