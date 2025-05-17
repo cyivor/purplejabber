@@ -19,11 +19,20 @@ class XMPPClient(slixmpp.ClientXMPP):
         
         self.add_event_handler("session_start", self.sessionHandler)
         self.add_event_handler("message", self.messageReceivedHandler)
+        self.add_event_handler("presence_subscribe", self.handleSubscription)
+        self.add_event_handler("roster_update", self.handleRoster)
 
         self.running = True
 
+    async def handleRoster(self, iq):
+        return
+
+    async def handleSubscription(self, pres):
+        return
+
     async def sessionHandler(self, event):
         self.send_presence()
+        await self.get_roster()
         print(app_config.Helpmsg)
 
         asyncio.create_task(self.inputLoop())
@@ -244,6 +253,7 @@ async def amain():
     
     # added
     xmppClient.register_plugin('xep_0030')
+    xmppClient.register_plugin('xep_0045') # multiuser chat
     xmppClient.register_plugin('xep_0199')
 
     try:

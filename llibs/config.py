@@ -30,3 +30,5 @@ Welcome to PurpleJabber. You can navigate with these:
 Pressing enter without any command will send a message to your most recent contact.
 """
 #    /exec          /$ - Execute commands from inside PurpleJabber
+#    /pullplugin    /ppl - Pull a plugin into your library
+#    /plugin        /ipl - Install a plugin that's in your library

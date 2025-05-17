@@ -55,7 +55,7 @@ class PGPManager:
             '-print'
         ]
 
-        result = subprocess.run(cmd, capture_output=True, text=True, check=False, stderr=subprocess.DEVNULL)
+        result = subprocess.run(cmd, capture_output=True, text=True, check=False)
             
         if result.returncode == 0:
             if result.stdout:
